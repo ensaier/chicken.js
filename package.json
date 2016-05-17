@@ -1,0 +1,26 @@
+{
+  "name": "neuralify",
+  "version": "0.0.1",
+  "description": "Neural network experiments",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ensaier/neuralify.git"
+  },
+  "keywords": [
+    "Neural",
+    "network"
+  ],
+  "author": "Oleksandr Tryshchenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ensaier/neuralify/issues"
+  },
+  "homepage": "https://github.com/ensaier/neuralify#readme",
+  "dependencies": {
+    "gulp-server-livereload": "^1.7.4"
+  }
+}

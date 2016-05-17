@@ -1,2 +1,2 @@
-# chicken.js
+# Neuralify
 Neural networks experiments

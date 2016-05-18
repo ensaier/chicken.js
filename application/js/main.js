@@ -11,6 +11,8 @@
 	}
 
 	notes.push(new NoteEntity('C1'));
+	notes.push(new NoteEntity('G#3'));
+	console.log(notes);
 })(
 	window.neuralify = window.neuralify || {},
 	window.synapcit = window.synaptic || {}

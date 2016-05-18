@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/ensaier/neuralify#readme",
   "dependencies": {
+    "gulp": "^3.9.1",
     "gulp-server-livereload": "^1.7.4"
   }
 }

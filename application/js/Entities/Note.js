@@ -5,7 +5,7 @@ var Note = (function() {
 		this.network = new Architect.Perceptron(40, 25, 3);
 		this.network.trainer = function() {}
 
-		if (composed.length !== 2 && composed.length !== 3) {
+		if ([2,3].indexOf(composed.length) != 1) {
 			console.warn('Something wrong with a note notation');
 			this.setDefaultNote();
 		} else {
@@ -26,6 +26,20 @@ var Note = (function() {
 
 	Note.prototype = {
 		notes: ['C', 'C#','D', 'D#','E','F', 'F#','G', 'G#', 'A', 'A#', 'B'],
+		// Halftones line
+		harmonies: {
+			melodic: {
+				minor: [2, 1, 2, 2, 2, 2, 1]
+			},
+			harmonic: {
+				major: [2, 2, 1, 2, 1, 2, 3, 1],
+				minor: [2, 1, 2, 2, 1, 3, 1]
+			},
+			natural: {
+				minor: [2, 1, 2, 2, 1, 2, 2]
+			}
+		},
+		harmony: [],
 		transponate: function(octave) {
 			this.octave += octave;
 		},
@@ -35,6 +49,37 @@ var Note = (function() {
 		setDefaultNote: function() {
 			this.note = this.notes[0];
 			this.octave = 3;
+		},
+		buildHarmony: function(type, harmony) {
+			var line = [];
+			var position = this.notes.indexOf(this.note);
+
+			this.harmonies[type][harmony].forEach(function(halftones){
+				if (position >= (this.notes.length - 1)) {
+					this.octave++;
+					position -= (this.notes.length - 1);
+				}
+				line.push({
+					note: this.notes[position],
+					octave: this.octave
+				});
+
+				position += halftones;
+				console.log('Halftone', position);
+				console.log('Notesl', this.notes.length);
+			}.bind(this));
+
+			// Instead of erasing
+			this.harmony = line;
+			return this;
+		},
+		harmonyToString: function() {
+			var line = '';
+			this.harmony.map(function(note){
+				line += note.note + note.octave + ' ';
+			});
+
+			return line;
 		}
 	};
 

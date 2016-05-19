@@ -3,20 +3,55 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Neural network experiments</title>
-	<link rel="stylesheet" href="/vendor/css/bootstrap.min.css">
-
+	<link rel="stylesheet" href="vendor/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/piano.css">
 	<script src="vendor/js/synaptic.min.js"></script>
 </head>
 <body>
 	<div class="row">
 		<div class="container">
 			<h1>Neural networks experiments</h1>
-			<div id="samples"></div>
+			<div id="manager" class="col-md-9">
+				<h3>Select note</h3>
+				<select id="note-picker" class="form-control"></select>
+				<h3>Harmonic minor</h3>
+				<div class="piano-box">
+					<ul class="piano">
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div></li>
+						<li><div class="key active"></div><span id="C2#"></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div></li>
+						<li><div class="key"></div><span id="F2#"></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div></li>
+					</ul>
+				</div>
+			</div>
+			<div id="samples" class="col-md-3"></div>
 		</div>
 	</div>
-	
+
 	<script src="js/Entities/Note.js"></script>
 	<script src="js/main.js"></script>
-
+	<script src="js/Helpers/pianoboard.js"></script>
+	<script src="js/examples.js"></script>
 </body>
 </html>

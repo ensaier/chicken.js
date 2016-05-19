@@ -1,0 +1,52 @@
+.piano-box {
+	padding-top:10px;
+	background-color:#D1D1D1;
+	border-radius:3px;
+	border:1px solid #aaa;
+	margin-top:10px;
+}
+
+.piano-box ul {
+	width:100%;
+	display:block;
+	height:200px;
+}
+
+.piano-box li {
+	background-color:white;
+	height:100%;
+	width:20px;
+	border:1px solid black;
+	border-left:0px solid transparent;
+	float:left;
+	display:block;
+	overflow:visible;
+	position:relative;
+}
+
+.piano-box .key {
+	width:100%;
+	height:100%;
+}
+
+.piano-box li:nth-child(1) {
+	border-left:1px solid black;
+}
+
+.piano-box li .key.active {
+	background-color:#D8FFDD;
+}
+
+.piano-box li span.active {
+	background-color: #1BB453;
+}
+
+.piano-box li span {
+	height: 50%;
+	width:13px;
+	position:absolute;
+	top:0px;
+	left:13px;
+	background-color:black;
+	z-index:1;
+}

@@ -5,8 +5,8 @@ var Note = (function() {
 		this.network = new Architect.Perceptron(40, 25, 3);
 		this.network.trainer = function() {}
 
-		if ([2,3].indexOf(composed.length) != 1) {
-			console.warn('Something wrong with a note notation');
+		if ([2,3].indexOf(composed.length) == -1) {
+			console.warn('Something wrong with a note notation', [2,3].indexOf(composed.length));
 			this.setDefaultNote();
 		} else {
 			if (composed.length == 3) {
@@ -14,7 +14,7 @@ var Note = (function() {
 				this.octave = composed[2];
 			} else {
 				this.note = composed[0];
-				this.octave = composed[1];		
+				this.octave = composed[1];
 			}
 		}
 
@@ -65,8 +65,6 @@ var Note = (function() {
 				});
 
 				position += halftones;
-				console.log('Halftone', position);
-				console.log('Notesl', this.notes.length);
 			}.bind(this));
 
 			// Instead of erasing
@@ -80,6 +78,9 @@ var Note = (function() {
 			});
 
 			return line;
+		},
+		harmonyToArray: function() {
+			return this.harmony;
 		}
 	};
 

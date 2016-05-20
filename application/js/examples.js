@@ -6,6 +6,11 @@
 	var noteSelector = document.getElementById('note-picker');
 	var harmonySelector = document.getElementById('harmony-picker');
 
+	/**
+	 * Make all logic about harmony preparation and representation
+	 * @param  {string} note    Note string
+	 * @param  {string} harmony Harmony string
+	 */
 	var run = function(note, harmony) {
 		samples = [];
 		samples.push({
@@ -23,10 +28,11 @@
 			title: 'Harmonic minor'
 		});
 
+		// Cleanup and draw. Causes child request to cleanUpPianoKeys function
 		drawPianoKeys(note, harmony);
 
-
 		examplesBox.innerHTML = '';
+
 		samples.forEach(function(sample){
 			var title = document.createElement('h3');
 			var line = document.createElement('p');
@@ -38,6 +44,11 @@
 		});
 	}
 
+	/**
+	 * Remove 'active' class from piano keys
+	 * @param  {[type]} button [description]
+	 * @return {[type]}        [description]
+	 */
 	var cleanUpPianoKeys = function(button) {
 		var blackKey = {};
 		if (button.className == undefined && button.className !== 'key') {
@@ -52,6 +63,11 @@
 		blackKey.classList.remove('active');
 	}
 
+	/**
+	 * Clean 'Active classes' and add actual 'Active' classes
+	 * @param  {string} note    Note
+	 * @param  {string} harmony Harmony
+	 */
 	var drawPianoKeys = function(note, harmony) {
 		harmony = harmony.split('_');
 		if (harmony.length !== 2) {
@@ -73,6 +89,10 @@
 		});
 	}
 
+	/**
+	 * Build notes dropdown dynamicaly
+	 * @return {[type]} [description]
+	 */
 	var buildNoteSelector = function() {
 		Note.prototype.notes.forEach(function(single){
 			var option = document.createElement('option');
@@ -82,20 +102,28 @@
 		})
 	}
 
+	/**
+	 * Encapsulated trigger for event handlers
+	 * @return {[type]} [description]
+	 */
 	var refreshPiano = function() {
 		var target = document.querySelector('#note-picker option:checked').value;
 		var harmonyElement = document.querySelector('#harmony-picker option:checked');
 
 		document.getElementById('selected-harmony').innerHTML = harmonyElement.innerHTML;
-		console.log(harmonyElement.value);
 		run(target, harmonyElement.value);
 	}
 
+	/**
+	 * Start event listeners
+	 */
 	var fireEventListeners = function() {
+		// Change note listener
 		noteSelector.addEventListener('change', function(event){
 			refreshPiano();
 		});
 
+		// Change harmony listener
 		harmonySelector.addEventListener('change', function(event){
 			refreshPiano();
 		});
@@ -103,5 +131,6 @@
 
 	fireEventListeners();
 	buildNoteSelector();
+	//Default values
 	run('C2', 'harmonic_major');
 })(window.Note = window.Note || {});

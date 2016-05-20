@@ -2,13 +2,12 @@
  * Developed by Oleksandr Tryshchenko, 2016
  * MIT
  */
-
-
 var Pianoboard = (function(){
 	'use strict';
 
 	var counter = 3;
 	var octave = 1;
+	// Notes with halfnotes for iterations
 	var notes = [
 		{
 			full: 'C',
@@ -39,6 +38,11 @@ var Pianoboard = (function(){
 			half: null
 		}
 	];
+	/**
+	 * Keyboard identifier. Adds notes id, halftone data and label
+	 * @param  {string} key  Object key
+	 * @param  {object} keys Keys object
+	 */
 	var initialIteration = function(key, keys) {
 		var labelElement = document.createElement('b');
 		var halftone = null;
@@ -61,7 +65,7 @@ var Pianoboard = (function(){
 			button.parentNode.querySelector('span').id = halftone;
 		}
 
-		labelElement.innerHtml = note.full;
+		labelElement.inner\Html = note.full;
 		button.parentNode.appendChild(labelElement);
 
 		button.id = note.full + octave;
@@ -71,6 +75,7 @@ var Pianoboard = (function(){
 
 	var keys = document.querySelectorAll('.key');
 
+	// Goes through .key elements add add notes
 	for (var key in keys) {
 		initialIteration(key, keys);
 	}

@@ -65,7 +65,7 @@ var Pianoboard = (function(){
 			button.parentNode.querySelector('span').id = halftone;
 		}
 
-		labelElement.inner\Html = note.full;
+		labelElement.innerHtml = note.full;
 		button.parentNode.appendChild(labelElement);
 
 		button.id = note.full + octave;

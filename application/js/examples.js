@@ -4,8 +4,9 @@
   	var samples = [];
 	var examplesBox = document.getElementById('samples');
 	var noteSelector = document.getElementById('note-picker');
+	var harmonySelector = document.getElementById('harmony-picker');
 
-	var run = function(note) {
+	var run = function(note, harmony) {
 		samples = [];
 		samples.push({
 			result: new Note(note).buildHarmony('melodic', 'minor').harmonyToString(),
@@ -22,7 +23,7 @@
 			title: 'Harmonic minor'
 		});
 
-		drawPianoKeys(note);
+		drawPianoKeys(note, harmony);
 
 
 		examplesBox.innerHTML = '';
@@ -38,14 +39,25 @@
 	}
 
 	var cleanUpPianoKeys = function(button) {
+		var blackKey = {};
 		if (button.className == undefined && button.className !== 'key') {
 			return;
 		}
 		button.classList.remove('active');
+
+		blackKey = button.parentNode.querySelector('span');
+		if (blackKey == null || blackKey.className == undefined) {
+			return;
+		}
+		blackKey.classList.remove('active');
 	}
 
-	var drawPianoKeys = function(note) {
-		var line = new Note(note).buildHarmony('harmonic', 'minor').harmonyToArray();
+	var drawPianoKeys = function(note, harmony) {
+		harmony = harmony.split('_');
+		if (harmony.length !== 2) {
+			return false;
+		}
+		var line = new Note(note).buildHarmony(harmony[0], harmony[1]).harmonyToArray();
 		var keys = document.querySelectorAll('.key');
 
 		for (var key in keys) {
@@ -53,6 +65,9 @@
 		}
 		line.forEach(function(key){
 			var element = document.getElementById(key.note + key.octave);
+			if (element == null) {
+				return;
+			}
 			var classes = element.className;
 			element.className = classes + ' active';
 		});
@@ -67,14 +82,26 @@
 		})
 	}
 
+	var refreshPiano = function() {
+		var target = document.querySelector('#note-picker option:checked').value;
+		var harmonyElement = document.querySelector('#harmony-picker option:checked');
+
+		document.getElementById('selected-harmony').innerHTML = harmonyElement.innerHTML;
+		console.log(harmonyElement.value);
+		run(target, harmonyElement.value);
+	}
+
 	var fireEventListeners = function() {
 		noteSelector.addEventListener('change', function(event){
-			var target = document.querySelector('#note-picker option:checked').value;
-			run(target);
+			refreshPiano();
+		});
+
+		harmonySelector.addEventListener('change', function(event){
+			refreshPiano();
 		});
 	}
 
 	fireEventListeners();
 	buildNoteSelector();
-	run('D#3');
+	run('C2', 'harmonic_major');
 })(window.Note = window.Note || {});

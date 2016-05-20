@@ -14,7 +14,23 @@
 			<div id="manager" class="col-md-9">
 				<h3>Select note</h3>
 				<select id="note-picker" class="form-control"></select>
-				<h3>Harmonic minor</h3>
+				<h3>Select harmony</h3>
+				<select id="harmony-picker" class="form-control">
+					 <optgroup label="Harmonic">
+							<option value="harmonic_minor">Harmonic Minor</option>
+							<option value="harmonic_major">Harmonic Major</option>
+					 </optgroup>
+					 <optgroup label="Melodic">
+							<option value="melodic_minor">Melodic Minor</option>
+							<option value="melodic_major" disabled>Melodic Major</option>
+					 </optgroup>
+					 <optgroup label="Natural">
+							<option value="natural_minor">Natural Minor</option>
+							<option value="natural_major" disabled>Natural Major</option>
+					 </optgroup>
+
+				</select>
+				<h3 id="selected-harmony">Harmonic minor</h3>
 				<div class="piano-box">
 					<ul class="piano">
 						<li><div class="key"></div><span></span></li>
@@ -42,6 +58,14 @@
 						<li><div class="key"></div><span></span></li>
 						<li><div class="key"></div><span></span></li>
 						<li><div class="key"></div></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div><span></span></li>
+						<li><div class="key"></div></li>
+
 					</ul>
 				</div>
 			</div>

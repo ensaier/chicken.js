@@ -54,18 +54,20 @@ var Note = (function() {
 			var line = [];
 			var position = this.notes.indexOf(this.note);
 
-			this.harmonies[type][harmony].forEach(function(halftones){
-				if (position >= (this.notes.length - 1)) {
-					this.octave++;
-					position -= (this.notes.length - 1);
-				}
-				line.push({
-					note: this.notes[position],
-					octave: this.octave
-				});
+			for (var i = 0; i < 7; i) {
+				this.harmonies[type][harmony].forEach(function(halftones){
+					if (position >= (this.notes.length - 1)) {
+						i++;
+						position -= (this.notes.length - 1);
+					}
+					line.push({
+						note: this.notes[position],
+						octave: i
+					});
 
-				position += halftones;
-			}.bind(this));
+					position += halftones;
+				}.bind(this));
+			}
 
 			// Instead of erasing
 			this.harmony = line;

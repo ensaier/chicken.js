@@ -1,2 +1,2 @@
-# Neuralify
-Neural networks experiments
+# Music harmony generator
+In progress

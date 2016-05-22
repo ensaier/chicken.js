@@ -6,7 +6,7 @@ var Pianoboard = (function(){
 	'use strict';
 
 	var counter = 3;
-	var octave = 1;
+	var octave = 2;
 	// Notes with halfnotes for iterations
 	var notes = [
 		{

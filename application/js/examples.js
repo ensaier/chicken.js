@@ -36,6 +36,7 @@
 		samples.forEach(function(sample){
 			var title = document.createElement('h3');
 			var line = document.createElement('p');
+
 			title.innerHTML = sample.title;
 			line.innerHTML = sample.result;
 			line.className = 'alert alert-info';
@@ -69,22 +70,28 @@
 	 * @param  {string} harmony Harmony
 	 */
 	var drawPianoKeys = function(note, harmony) {
+		var line = {};
+		var keys = {};
+
 		harmony = harmony.split('_');
 		if (harmony.length !== 2) {
 			return false;
 		}
-		var line = new Note(note).buildHarmony(harmony[0], harmony[1]).harmonyToArray();
-		var keys = document.querySelectorAll('.key');
+
+		line = new Note(note).buildHarmony(harmony[0], harmony[1]).harmonyToArray();
+		keys = document.querySelectorAll('.key');
 
 		for (var key in keys) {
 			cleanUpPianoKeys(keys[key]);
 		}
 		line.forEach(function(key){
 			var element = document.getElementById(key.note + key.octave);
+			var classes = {};
+
 			if (element == null) {
 				return;
 			}
-			var classes = element.className;
+			classes = element.className;
 			element.className = classes + ' active';
 		});
 	}
@@ -131,6 +138,5 @@
 
 	fireEventListeners();
 	buildNoteSelector();
-	//Default values
-	run('C2', 'harmonic_major');
+	refreshPiano();
 })(window.Note = window.Note || {});

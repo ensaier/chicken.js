@@ -80,21 +80,8 @@
 
 		line = new Note(note).buildHarmony(harmony[0], harmony[1]).harmonyToArray();
 		midiPlayer.playHarmony(line);
-		keys = document.querySelectorAll('.key');
 
-		for (var key in keys) {
-			cleanUpPianoKeys(keys[key]);
-		}
-		line.forEach(function(key){
-			var element = document.getElementById(key.note + key.octave);
-			var classes = {};
-
-			if (element == null) {
-				return;
-			}
-			classes = element.className;
-			element.className = classes + ' active';
-		});
+		Pianoboard.markActiveKeys(line);
 	}
 
 	/**

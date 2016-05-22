@@ -28,7 +28,10 @@ var midiPlayer = (function(){
 
 					target = harmony[i].note + harmony[i].octave;
 					localNote = new Note(target).toMIDI();
-					
+
+					// TODO pass it throught callback
+					Pianoboard.markPressedKey(target);
+
 					if (inverse) {
 						i--;
 					} else {

@@ -5,8 +5,8 @@
 var Pianoboard = (function(){
 	'use strict';
 
-	var counter = 3;
-	var octave = 2;
+	var counter = 0;
+	var octave = 1;
 	// Notes with halfnotes for iterations
 	var notes = [
 		{
@@ -38,6 +38,9 @@ var Pianoboard = (function(){
 			half: null
 		}
 	];
+
+	var keys = document.querySelectorAll('.key');
+
 	/**
 	 * Keyboard identifier. Adds notes id, halftone data and label
 	 * @param  {string} key  Object key
@@ -73,12 +76,66 @@ var Pianoboard = (function(){
 		counter++;
 	}
 
-	var keys = document.querySelectorAll('.key');
+	var iterateCleanup = function(keys, classname) {
+		for (var key in keys) {
+			cleanUpPianoKeys(keys[key], classname);
+		}
+	}
+
+	/**
+	 * Remove 'active' class from piano keys
+	 * @param  {[type]} button [description]
+	 * @return {[type]}        [description]
+	 */
+	var cleanUpPianoKeys = function(button, className) {
+		var blackKey = {};
+		if (button.className == undefined && button.className !== 'key') {
+			return;
+		}
+		button.classList.remove(className);
+
+		blackKey = button.parentNode.querySelector('span');
+		if (blackKey == null || blackKey.className == undefined) {
+			return;
+		}
+		blackKey.classList.remove(className);
+	}
+
+	var markActiveKeys = function(line) {
+		iterateCleanup(keys, 'active');
+		line.forEach(function(key){
+			var element = document.getElementById(key.note + key.octave);
+			var classes = {};
+
+			if (element == null) {
+				return;
+			}
+
+			element.className += ' active';
+		});
+	}
+
+	var markPressedKey = function(key) {
+		var pressedClassName = 'pressed';
+		var element = document.getElementById(key);
+
+		iterateCleanup(keys, pressedClassName);
+		if (element == null) {
+			return false;
+		}
+
+		element.className += ' ' + pressedClassName;
+	}
 
 	console.log(notes.indexOf('C'));
 
 	// Goes through .key elements add add notes
 	for (var key in keys) {
 		initialIteration(key, keys);
+	}
+
+	return {
+		markActiveKeys: markActiveKeys,
+		markPressedKey: markPressedKey
 	}
 })();

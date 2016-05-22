@@ -3,6 +3,10 @@ var Note = (function() {
 
 	var midiMultiplier = 12;
 
+	/**
+	 * Note entity
+	 * @param {string} composed Note string like (C#2)
+	 */
 	var Note = function(composed) {
 		this.network = new Architect.Perceptron(40, 25, 3);
 
@@ -26,6 +30,10 @@ var Note = (function() {
 	}
 
 	Note.prototype = {
+		/**
+		 * Simple array with notes consequence
+		 * @type {Array}
+		 */
 		notes: ['C', 'C#','D', 'D#','E','F', 'F#','G', 'G#', 'A', 'A#', 'B'],
 		// Halftones line
 		harmonies: {
@@ -41,17 +49,39 @@ var Note = (function() {
 				ionical: [2, 2, 1, 2, 2, 2, 1]
 			}
 		},
+		/**
+		 * Harmony array
+		 * @type {Array}
+		 */
 		harmony: [],
+		/**
+		 * Transponate octave
+		 * @param  {integer} octave Octave
+		 */
 		transponate: function(octave) {
 			this.octave += octave;
 		},
+		/**
+		 * Check is note
+		 * @param  {string}  char Note char
+		 * @return {Boolean}
+		 */
 		isNote: function(char) {
 			return this.notes.indexOf(char) > -1;
 		},
+		/**
+		 * Fallback for case where note is incorrect
+		 */
 		setDefaultNote: function() {
 			this.note = this.notes[0];
 			this.octave = 3;
 		},
+		/**
+		 * Harmony builder
+		 * @param  {string} type    harmony type
+		 * @param  {string} harmony harmony
+		 * @return {object}         self for chaining
+		 */
 		buildHarmony: function(type, harmony) {
 			var line = [];
 			var position = this.notes.indexOf(this.note);
@@ -75,6 +105,10 @@ var Note = (function() {
 			this.harmony = line;
 			return this;
 		},
+		/**
+		 * Export harmony to the string concatenated with an underscore symbol
+		 * @return {string} Harmony
+		 */
 		harmonyToString: function() {
 			var line = '';
 			this.harmony.map(function(note){
@@ -83,21 +117,28 @@ var Note = (function() {
 
 			return line;
 		},
+		/**
+		 * Getter for harmony
+		 * @return {array} Harmony
+		 */
 		harmonyToArray: function() {
 			return this.harmony;
 		},
+		/**
+		 * Export note to midi note
+		 * @return {integer} note integer
+		 */
 		toMIDI: function() {
 			// Type conversion
 			var octaveCalc = +this.octave + 1;
-			console.log('Octave', octaveCalc);
 			var localMultiplier = octaveCalc * midiMultiplier;
 			var noteOffset = this.notes.indexOf(this.note);
+
 			if (noteOffset < 0) {
 				return noteOffset;
 			}
 
-			console.log('localMultiplier', localMultiplier, noteOffset);
-
+			// Type conversion
 			return (localMultiplier + 0) + (noteOffset + 0);
 		},
 

@@ -32,7 +32,7 @@ var Note = (function() {
 				minor: [2, 1, 2, 2, 2, 2, 1]
 			},
 			harmonic: {
-				major: [2, 2, 1, 2, 1, 2, 3, 1],
+				major: [2, 2, 1, 2, 1, 2, 3],
 				minor: [2, 1, 2, 2, 1, 3, 1]
 			},
 			natural: {

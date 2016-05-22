@@ -3,8 +3,12 @@
 
   	var samples = [];
 	var examplesBox = document.getElementById('samples');
+
 	var noteSelector = document.getElementById('note-picker');
 	var harmonySelector = document.getElementById('harmony-picker');
+	var playButton = document.getElementById('play-button');
+	var stopButton = document.getElementById('stop-button');
+
 
 	/**
 	 * Make all logic about harmony preparation and representation
@@ -46,25 +50,6 @@
 	}
 
 	/**
-	 * Remove 'active' class from piano keys
-	 * @param  {[type]} button [description]
-	 * @return {[type]}        [description]
-	 */
-	var cleanUpPianoKeys = function(button) {
-		var blackKey = {};
-		if (button.className == undefined && button.className !== 'key') {
-			return;
-		}
-		button.classList.remove('active');
-
-		blackKey = button.parentNode.querySelector('span');
-		if (blackKey == null || blackKey.className == undefined) {
-			return;
-		}
-		blackKey.classList.remove('active');
-	}
-
-	/**
 	 * Clean 'Active classes' and add actual 'Active' classes
 	 * @param  {string} note    Note
 	 * @param  {string} harmony Harmony
@@ -102,6 +87,8 @@
 	 * @return {[type]} [description]
 	 */
 	var refreshPiano = function() {
+		clearInterval(window.currentPlayback);
+
 		var target = document.querySelector('#note-picker option:checked').value;
 		var harmonyElement = document.querySelector('#harmony-picker option:checked');
 
@@ -114,13 +101,15 @@
 	 */
 	var fireEventListeners = function() {
 		// Change note listener
-		noteSelector.addEventListener('change', function(event){
-			refreshPiano();
-		});
+		noteSelector.addEventListener('change', refreshPiano);
 
 		// Change harmony listener
-		harmonySelector.addEventListener('change', function(event){
-			refreshPiano();
+		harmonySelector.addEventListener('change', refreshPiano);
+
+		playButton.addEventListener('click', refreshPiano);
+
+		stopButton.addEventListener('click', function(event){
+			clearInterval(window.currentPlayback);
 		});
 	}
 

@@ -13,16 +13,16 @@ var midiPlayer = (function(){
 				var inverse = false;
 				// TODO: Create some ES6 iterator here
 				var i = 0;
-				var interval = setInterval(function(){
+				window.currentPlayback = setInterval(function(){
 					var target;
 					var localNote;
 					if (i == harmony.length) {
 						inverse = true;
-						i--;
+						i -= 2;
 					}
 
 					if (harmony[i] == undefined || i < 0) {
-						clearInterval(interval);
+						clearInterval(window.currentPlayback);
 						return;
 					}
 
@@ -33,9 +33,17 @@ var midiPlayer = (function(){
 					Pianoboard.markPressedKey(target);
 
 					if (inverse) {
-						i--;
+						if (Math.random() > 0.3 || i > (harmony.length - 3)) {
+							i--;
+						} else {
+							i++;
+						}
 					} else {
-						i++;
+						if (Math.random() > 0.3 || i < 2) {
+							i++;
+						} else {
+							i--;
+						}
 					}
 					MIDI.setVolume(0, 127);
 					MIDI.noteOn(0, localNote, velocity, delay);

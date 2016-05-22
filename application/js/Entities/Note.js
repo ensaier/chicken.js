@@ -46,7 +46,7 @@ var Note = (function() {
 			},
 			natural: {
 				minor: [2, 1, 2, 2, 1, 2, 2],
-				ionical: [2, 2, 1, 2, 2, 2, 1]
+				major: [2, 2, 1, 2, 2, 2, 1]
 			}
 		},
 		/**

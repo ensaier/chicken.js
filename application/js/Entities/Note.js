@@ -46,7 +46,7 @@ var Note = (function() {
 			this.octave += octave;
 		},
 		isNote: function(char) {
-			return this.notes.indexOf(char) > 0;
+			return this.notes.indexOf(char) > -1;
 		},
 		setDefaultNote: function() {
 			this.note = this.notes[0];
@@ -89,6 +89,7 @@ var Note = (function() {
 		toMIDI: function() {
 			// Type conversion
 			var octaveCalc = +this.octave + 1;
+			console.log('Octave', octaveCalc);
 			var localMultiplier = octaveCalc * midiMultiplier;
 			var noteOffset = this.notes.indexOf(this.note);
 			if (noteOffset < 0) {
@@ -98,7 +99,8 @@ var Note = (function() {
 			console.log('localMultiplier', localMultiplier, noteOffset);
 
 			return (localMultiplier + 0) + (noteOffset + 0);
-		}
+		},
+
 	};
 
 	return Note;

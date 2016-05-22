@@ -79,6 +79,7 @@
 		}
 
 		line = new Note(note).buildHarmony(harmony[0], harmony[1]).harmonyToArray();
+		midiPlayer.playHarmony(line);
 		keys = document.querySelectorAll('.key');
 
 		for (var key in keys) {

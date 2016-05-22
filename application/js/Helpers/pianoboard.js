@@ -75,6 +75,8 @@ var Pianoboard = (function(){
 
 	var keys = document.querySelectorAll('.key');
 
+	console.log(notes.indexOf('C'));
+
 	// Goes through .key elements add add notes
 	for (var key in keys) {
 		initialIteration(key, keys);

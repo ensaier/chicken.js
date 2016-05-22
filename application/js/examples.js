@@ -136,6 +136,9 @@
 		});
 	}
 
+	// For the test purposes
+	console.log('Midi',(new Note('C3')).toMIDI());
+
 	fireEventListeners();
 	buildNoteSelector();
 	refreshPiano();

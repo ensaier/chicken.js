@@ -1,9 +1,10 @@
 var Note = (function() {
 	'use strict';
 
+	var midiMultiplier = 12;
+
 	var Note = function(composed) {
 		this.network = new Architect.Perceptron(40, 25, 3);
-		this.network.trainer = function() {}
 
 		if ([2,3].indexOf(composed.length) == -1) {
 			console.warn('Something wrong with a note notation', [2,3].indexOf(composed.length));
@@ -84,6 +85,19 @@ var Note = (function() {
 		},
 		harmonyToArray: function() {
 			return this.harmony;
+		},
+		toMIDI: function() {
+			// Type conversion
+			var octaveCalc = +this.octave + 1;
+			var localMultiplier = octaveCalc * midiMultiplier;
+			var noteOffset = this.notes.indexOf(this.note);
+			if (noteOffset < 0) {
+				return noteOffset;
+			}
+
+			console.log('localMultiplier', localMultiplier, noteOffset);
+
+			return (localMultiplier + 0) + (noteOffset + 0);
 		}
 	};
 

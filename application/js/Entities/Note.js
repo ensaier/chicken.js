@@ -36,7 +36,8 @@ var Note = (function() {
 				minor: [2, 1, 2, 2, 1, 3, 1]
 			},
 			natural: {
-				minor: [2, 1, 2, 2, 1, 2, 2]
+				minor: [2, 1, 2, 2, 1, 2, 2],
+				ionical: [2, 2, 1, 2, 2, 2, 1]
 			}
 		},
 		harmony: [],
@@ -56,9 +57,9 @@ var Note = (function() {
 
 			for (var i = 0; i < 7; i) {
 				this.harmonies[type][harmony].forEach(function(halftones){
-					if (position >= (this.notes.length - 1)) {
+					if (position > (this.notes.length - 1)) {
 						i++;
-						position -= (this.notes.length - 1);
+						position = 0;
 					}
 					line.push({
 						note: this.notes[position],

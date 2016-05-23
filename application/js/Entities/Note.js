@@ -87,11 +87,10 @@ var Note = (function() {
 			var position = this.notes.indexOf(this.note);
 			var haystack = [];
 
-			options = options || {};
-
+			// Process pentatonic
 			haystack = this.harmonies[type][harmony];
-			if (options.pentatonic !== undefined && options.pentatonic) {
-				haystack = haystack.map(this.buildPentatonic);
+			if (options !== undefined && options.pentatonic !== undefined && options.pentatonic) {
+				haystack = this.buildPentatonic(haystack);
 			}
 
 			for (var i = 0; i < 7; i) {
@@ -114,10 +113,19 @@ var Note = (function() {
 			return this;
 		},
 
-		buildPentatonic: function(value) {
-			if (value > 1) {
-				return value;
+		/**
+		 * Pentatonic generation
+		 * @param  {array} haystack Halftones line
+		 * @return {array}          Pentatonic halftones line
+		 */
+		buildPentatonic: function(haystack) {
+			for (var i = 0; i < haystack.length; i++) {
+				if (haystack[i] == 1) {
+					haystack[i - 1]++;
+					haystack.splice(i, 1);
+				}
 			}
+			return haystack;
 		},
 		/**
 		 * Export harmony to the string concatenated with an underscore symbol

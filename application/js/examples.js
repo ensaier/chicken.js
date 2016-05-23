@@ -6,16 +6,16 @@
 
 	var noteSelector = document.getElementById('note-picker');
 	var harmonySelector = document.getElementById('harmony-picker');
+	var pentatonicSelector = document.getElementById('pentatonic-picker');
 	var playButton = document.getElementById('play-button');
 	var stopButton = document.getElementById('stop-button');
-
 
 	/**
 	 * Make all logic about harmony preparation and representation
 	 * @param  {string} note    Note string
 	 * @param  {string} harmony Harmony string
 	 */
-	var run = function(note, harmony) {
+	var run = function(note, harmony, options) {
 		samples = [];
 		samples.push({
 			result: new Note(note).buildHarmony('melodic', 'minor').harmonyToString(),
@@ -33,7 +33,7 @@
 		});
 
 		// Cleanup and draw. Causes child request to cleanUpPianoKeys function
-		drawPianoKeys(note, harmony);
+		drawPianoKeys(note, harmony, options);
 
 		examplesBox.innerHTML = '';
 
@@ -54,7 +54,7 @@
 	 * @param  {string} note    Note
 	 * @param  {string} harmony Harmony
 	 */
-	var drawPianoKeys = function(note, harmony) {
+	var drawPianoKeys = function(note, harmony, options) {
 		var line = {};
 		var keys = {};
 
@@ -63,7 +63,7 @@
 			return false;
 		}
 
-		line = new Note(note).buildHarmony(harmony[0], harmony[1]).harmonyToArray();
+		line = new Note(note).buildHarmony(harmony[0], harmony[1], options).harmonyToArray();
 		midiPlayer.playHarmony(line);
 
 		Pianoboard.markActiveKeys(line);
@@ -91,9 +91,14 @@
 
 		var target = document.querySelector('#note-picker option:checked').value;
 		var harmonyElement = document.querySelector('#harmony-picker option:checked');
+		var pentatonic = document.querySelector('#pentatonic-picker option:checked').value == 1;
+		var options = {
+			pentatonic: pentatonic
+		}
 
 		document.getElementById('selected-harmony').innerHTML = harmonyElement.innerHTML;
-		run(target, harmonyElement.value);
+
+		run(target, harmonyElement.value, options);
 	}
 
 	/**
@@ -105,6 +110,8 @@
 
 		// Change harmony listener
 		harmonySelector.addEventListener('change', refreshPiano);
+
+		pentatonicSelector.addEventListener('change', refreshPiano);
 
 		playButton.addEventListener('click', refreshPiano);
 

@@ -1,7 +1,33 @@
 var MidiCompiler = (function(){
 
+	var speed = 120;
+	var size = 4;
+	var availableSizes = ['1', '2', '4', '8', '16', '32'];
+
 	var defaultPianoBoard = {
 		markPressedKey: function() {}
+	}
+
+	var setSpeed = function(newSpeed) {
+		if (newSpeed > 260) {
+			newSpeed = 260
+		}
+		speed = Math.abs(newSpeed);
+	}
+
+	var getSpeed = function() {
+		return speed;
+	}
+
+	var setSize = function(newSize) {
+		if (availableSizes.indexOf(newSize) == -1) {
+			newSize = 8;
+		}
+		size = newSize;
+	}
+
+	var getSize = function() {
+		return size;
 	}
 
 	var playHarmony = function(harmony) {
@@ -52,7 +78,7 @@ var MidiCompiler = (function(){
 					}
 					MIDI.setVolume(0, 127);
 					MIDI.noteOn(0, localNote, velocity, delay);
-				}.bind(this), 100);
+				}.bind(this), 60000 / (speed * (size / 4)));
 			}.bind(this)
 		});
 	}
@@ -62,6 +88,10 @@ var MidiCompiler = (function(){
 		this.pianoboard = options.pianoboard || defaultPianoBoard;
 		this.playHarmony = playHarmony.bind(this);
 		this.currentPlayback = {};
+		this.getSpeed = getSpeed;
+		this.setSpeed = setSpeed;
+		this.setSize = setSize;
+		this.getSize = getSize;
 	}
 
 	return Construct;

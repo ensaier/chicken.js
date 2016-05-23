@@ -9,6 +9,8 @@
 	var pentatonicSelector = document.getElementById('pentatonic-picker');
 	var playButton = document.getElementById('play-button');
 	var stopButton = document.getElementById('stop-button');
+	var speedInput = document.getElementById('speed-input');
+	var sizeSelector = document.getElementById('size-picker');
 	var show;
 
 	/**
@@ -62,6 +64,14 @@
 		var target = document.querySelector('#note-picker option:checked').value;
 		var harmonyElement = document.querySelector('#harmony-picker option:checked');
 		var pentatonic = document.querySelector('#pentatonic-picker option:checked').value == 1;
+		var speed = speedInput.value;
+		var size = sizeSelector.querySelector('option:checked').value;
+
+		midiPlayer.setSpeed(speed);
+		speedInput.value = midiPlayer.getSpeed();
+
+		midiPlayer.setSize(size);
+
 		var options = {
 			pentatonic: pentatonic
 		}
@@ -83,11 +93,16 @@
 
 		pentatonicSelector.addEventListener('change', refreshPiano);
 
+		sizeSelector.addEventListener('change', refreshPiano);
+
 		playButton.addEventListener('click', refreshPiano);
 
 		stopButton.addEventListener('click', function(event){
 			clearInterval(midiPlayer.currentPlayback);
 		});
+
+		speedInput.addEventListener('input', refreshPiano);
+		speedInput.addEventListener('change', refreshPiano);
 	}
 
 	fireEventListeners();

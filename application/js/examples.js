@@ -1,6 +1,9 @@
 ;(function(namespace) {
   'use strict';
 
+  	var midiPlayer = new MidiCompiler(Pianoboard);
+
+  	console.log(midiPlayer);
   	var samples = [];
 	var examplesBox = document.getElementById('samples');
 

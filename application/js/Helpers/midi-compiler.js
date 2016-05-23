@@ -1,4 +1,9 @@
-var midiPlayer = (function(){
+var MidiCompiler = (function(){
+
+	var defaultPianoBoard = {
+		markPressedKey: function() {}
+	}
+
 	var playHarmony = function(harmony) {
 		MIDI.loadPlugin({
 			soundfontUrl: "../vendor/soundfont/",
@@ -30,7 +35,7 @@ var midiPlayer = (function(){
 					localNote = new Note(target).toMIDI();
 
 					// TODO pass it throught callback
-					Pianoboard.markPressedKey(target);
+					this.pianoboard.markPressedKey(target);
 
 					if (inverse) {
 						if (Math.random() > 0.3 || i > (harmony.length - 3)) {
@@ -53,7 +58,13 @@ var midiPlayer = (function(){
 		});
 	}
 
-	return {
-		playHarmony: playHarmony
+	// Constructor
+	var Construct = function(options) {
+		this.pianoboard = options.pianoboard || defaultPianoBoard;
+		this.playHarmony = playHarmony;
+
+		return this;
 	}
+
+	return Construct;
 })();

@@ -82,12 +82,20 @@ var Note = (function() {
 		 * @param  {string} harmony harmony
 		 * @return {object}         self for chaining
 		 */
-		buildHarmony: function(type, harmony) {
+		buildHarmony: function(type, harmony, options) {
 			var line = [];
 			var position = this.notes.indexOf(this.note);
+			var haystack = [];
+
+			options = options || {};
+
+			haystack = this.harmonies[type][harmony];
+			if (options.pentatonic !== undefined && options.pentatonic) {
+				haystack = haystack.map(this.buildPentatonic);
+			}
 
 			for (var i = 0; i < 7; i) {
-				this.harmonies[type][harmony].forEach(function(halftones){
+				haystack.forEach(function(halftones){
 					if (position > (this.notes.length - 1)) {
 						i++;
 						position = 0;
@@ -104,6 +112,12 @@ var Note = (function() {
 			// Instead of erasing
 			this.harmony = line;
 			return this;
+		},
+
+		buildPentatonic: function(value) {
+			if (value > 1) {
+				return value;
+			}
 		},
 		/**
 		 * Export harmony to the string concatenated with an underscore symbol

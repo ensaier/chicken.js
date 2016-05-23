@@ -18,7 +18,7 @@ var MidiCompiler = (function(){
 				var inverse = false;
 				// TODO: Create some ES6 iterator here
 				var i = 0;
-				window.currentPlayback = setInterval(function(){
+				this.currentPlayback = setInterval(function(){
 					var target;
 					var localNote;
 					if (i == harmony.length) {
@@ -27,7 +27,7 @@ var MidiCompiler = (function(){
 					}
 
 					if (harmony[i] == undefined || i < 0) {
-						clearInterval(window.currentPlayback);
+						clearInterval(this.currentPlayback);
 						return;
 					}
 
@@ -52,18 +52,16 @@ var MidiCompiler = (function(){
 					}
 					MIDI.setVolume(0, 127);
 					MIDI.noteOn(0, localNote, velocity, delay);
-				}, 100);
-
-			}
+				}.bind(this), 100);
+			}.bind(this)
 		});
 	}
 
 	// Constructor
 	var Construct = function(options) {
 		this.pianoboard = options.pianoboard || defaultPianoBoard;
-		this.playHarmony = playHarmony;
-
-		return this;
+		this.playHarmony = playHarmony.bind(this);
+		this.currentPlayback = {};
 	}
 
 	return Construct;

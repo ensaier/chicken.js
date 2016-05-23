@@ -1,9 +1,9 @@
 .piano-box {
 	padding-top:10px;
 	padding-bottom:20px;
-	background-color:#D1D1D1;
+	background-color:#F3F7D9;
 	border-radius:3px;
-	border:1px solid #aaa;
+	border:1px solid #BCF1C6;
 	margin-top:10px;
 }
 
@@ -43,7 +43,6 @@
 }
 
 .piano-box li .key.active.pressed {
-	box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 	background-color:yellow;
 }
 
@@ -53,7 +52,6 @@
 }
 
 .piano-box li span.pressed {
-	box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 	background-color: yellow;
 	background-image: linear-gradient(rgba(255,255,255,0.2), rgba(0,0,0,0.3));
 }

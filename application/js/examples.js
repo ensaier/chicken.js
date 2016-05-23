@@ -1,7 +1,7 @@
 ;(function(namespace) {
   'use strict';
 
-  	var midiPlayer = new MidiCompiler(Pianoboard);
+  	var midiPlayer = new MidiCompiler({pianoboard: Pianoboard});
 
   	console.log(midiPlayer);
   	var samples = [];
@@ -89,7 +89,7 @@
 		playButton.addEventListener('click', refreshPiano);
 
 		stopButton.addEventListener('click', function(event){
-			clearInterval(window.currentPlayback);
+			clearInterval(midiPlayer.currentPlayback);
 		});
 	}
 

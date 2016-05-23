@@ -2,11 +2,8 @@
   'use strict';
 
   	var midiPlayer = new MidiCompiler({pianoboard: Pianoboard});
-
-  	console.log(midiPlayer);
   	var samples = [];
 	var examplesBox = document.getElementById('samples');
-
 	var noteSelector = document.getElementById('note-picker');
 	var harmonySelector = document.getElementById('harmony-picker');
 	var pentatonicSelector = document.getElementById('pentatonic-picker');
@@ -60,7 +57,7 @@
 	 * @return {[type]} [description]
 	 */
 	var refreshPiano = function() {
-		clearInterval(window.currentPlayback);
+		clearInterval(midiPlayer.currentPlayback);
 
 		var target = document.querySelector('#note-picker option:checked').value;
 		var harmonyElement = document.querySelector('#harmony-picker option:checked');
@@ -92,9 +89,6 @@
 			clearInterval(midiPlayer.currentPlayback);
 		});
 	}
-
-	// For the test purposes
-	console.log('Midi',(new Note('C3')).toMIDI());
 
 	fireEventListeners();
 	buildNoteSelector();

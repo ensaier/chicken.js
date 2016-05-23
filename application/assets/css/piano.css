@@ -8,9 +8,10 @@
 }
 
 .piano-box ul {
-	width:100%;
-	display:block;
-	height:250px;
+    display: block;
+    width: 1315px;
+    height: 250px;
+    margin: 0 auto;
 }
 
 .piano-box li {

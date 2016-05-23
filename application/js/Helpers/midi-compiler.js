@@ -7,8 +7,8 @@ var midiPlayer = (function(){
 				console.log(state, progress);
 			},
 			onsuccess: function() {
-				var delay = 0; 
-				var note = 50; 
+				var delay = 0;
+				var note = 50;
 				var velocity = 127;
 				var inverse = false;
 				// TODO: Create some ES6 iterator here

@@ -9,45 +9,7 @@
 	var pentatonicSelector = document.getElementById('pentatonic-picker');
 	var playButton = document.getElementById('play-button');
 	var stopButton = document.getElementById('stop-button');
-
-	/**
-	 * Make all logic about harmony preparation and representation
-	 * @param  {string} note    Note string
-	 * @param  {string} harmony Harmony string
-	 */
-	var run = function(note, harmony, options) {
-		samples = [];
-		samples.push({
-			result: new Note(note).buildHarmony('melodic', 'minor').harmonyToString(),
-			title: 'Melodic minor'
-		});
-
-		samples.push({
-			result: new Note(note).buildHarmony('harmonic', 'major').harmonyToString(),
-			title: 'Harmonic major'
-		});
-
-		samples.push({
-			result: new Note(note).buildHarmony('harmonic', 'minor').harmonyToString(),
-			title: 'Harmonic minor'
-		});
-
-		// Cleanup and draw. Causes child request to cleanUpPianoKeys function
-		drawPianoKeys(note, harmony, options);
-
-		examplesBox.innerHTML = '';
-
-		samples.forEach(function(sample){
-			var title = document.createElement('h3');
-			var line = document.createElement('p');
-
-			title.innerHTML = sample.title;
-			line.innerHTML = sample.result;
-			line.className = 'alert alert-info';
-			examplesBox.appendChild(title);
-			examplesBox.appendChild(line);
-		});
-	}
+	var show;
 
 	/**
 	 * Clean 'Active classes' and add actual 'Active' classes
@@ -57,13 +19,21 @@
 	var drawPianoKeys = function(note, harmony, options) {
 		var line = {};
 		var keys = {};
+		var prebuilt;
+		var stringified;
 
 		harmony = harmony.split('_');
 		if (harmony.length !== 2) {
 			return false;
 		}
 
-		line = new Note(note).buildHarmony(harmony[0], harmony[1], options).harmonyToArray();
+		prebuilt = new Note(note).buildHarmony(harmony[0], harmony[1], options);
+		line = prebuilt.harmonyToArray();
+		stringified = prebuilt.harmonyToString();
+
+		document.getElementById('sample-title').innerHTML = harmony[0] + ' ' + harmony[1];
+		document.getElementById('sample-text').innerHTML = stringified;
+
 		midiPlayer.playHarmony(line);
 
 		Pianoboard.markActiveKeys(line);
@@ -98,7 +68,7 @@
 
 		document.getElementById('selected-harmony').innerHTML = harmonyElement.innerHTML;
 
-		run(target, harmonyElement.value, options);
+		drawPianoKeys(target, harmonyElement.value, options);
 	}
 
 	/**
